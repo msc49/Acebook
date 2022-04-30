@@ -1,0 +1,116 @@
+<div class="container ">
+  <div class="row justify-content-center">
+    <div id="posts-column" class="col-sm-8 col-lg-7">
+      <div class = "card bg-light mb-3" style="width: 32rem;" >
+        <div class = "card-body">
+        <%= render "form", post: @post%> <!--brings new form to index-->
+        </div>
+
+      </div>
+        <% @posts.each do |post| %>
+            <% owner = post.user %>
+              <article class = "card bg-light mb-3" style="width: 32rem;">
+
+                  <div class = "card-body border-top">
+                    <div class="card-title">
+                      <h5>
+                        <%= image_tag(post.user.avatar.variant(resize_to_limit: [50, 50]), class: 'rounded-circle') %>
+                        <%= "#{post.user.username}"%>
+                      </h5>
+                      <p><small> <%= "#{distance_of_time_in_words(Time.now, post.created_at, include_seconds: true)} ago"%> </small></p>
+                    </div>
+                                                              
+                    <div class = "card-text">
+                      <h1><strong><%= post.message %></strong></h1>
+                    </div>
+
+                    <div class="card-body">
+                      <div>
+                        <% if post.image.attached? %>
+                          <%= image_tag(post.image, class: "img-fluid") %>
+                        <% end %>
+                      </div>
+                    </div>          
+                      
+                    <div class="card-link">              
+                      <% pre_like = post.likes.find { |like| like.user_id == current_user.id} %>
+                        <% if pre_like %>
+                          <%= link_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
+                        <% else %>
+                          <%= link_to 'Like', post_likes_path(post), method: :post %>
+                        <% end %>
+
+                      <% if current_user == owner%>
+                      <%= link_to "Edit", edit_post_path(post) %> 
+                      <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?' } %> 
+                      <% end %>
+                    <p><%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+                    </div>
+                  </div>
+                    
+                  <div class = "card-body border-top">
+                    <strong>Comments:</strong>
+                    <%= render post.comments, owner: owner%>           
+                    <%= bootstrap_form_with model: [ post, post.comments.build ], local: true do |form| %>
+                            <%=form.text_field :content, placeholder: "Write a comment...", skip_label: true, id:"content", :rows=>1, :cols=>20 %>
+                            <%=form.submit "Comment", id:"create_comment", class:"btn btn-secondary btn-sm"%>
+                    <% end %>
+                  </div>
+                </article>
+            <% end %>
+          </div>
+
+
+    <div id="friends-column" class="col-sm-4 col-md-7 col-lg-2">
+      <div id='friends-requests' class="card p-2">
+        <h3>Requests</h3>
+        <ul>
+          <% for friendship in @friendships %>
+            <% if friendship.accepted == false %>
+              <% if current_user.id == friendship.friend_id %>
+              <li>
+                <%= image_tag(User.find(friendship.user_id).avatar.variant(resize_to_limit: [30, 30]), class: 'rounded-circle') %>
+                <%= User.find(friendship.user_id).username %>
+                <div class="btn-group mt-1 pl-4">
+                  <%= button_to "Accept", friendship, :method => :patch, class:"btn btn-sm btn-success" %>
+                  <%= button_to "Reject", friendship, :method => :delete, class: "btn btn-sm btn-danger" %>
+                </div>
+              </li>
+              <% end %>
+            <% end %>
+          <% end %>  
+          </ul>
+      </div>
+
+      <div id="friends-list" class="card p-2">
+        <h3>Contacts</h3>
+          <ul>
+            <% for friendship in @friendships %>
+              <% if friendship.accepted == true %>
+                <li>
+                    <% if current_user.id == friendship.user_id %>
+                      <%= image_tag(User.find(friendship.friend_id).avatar.variant(resize_to_limit: [30, 30]), class: 'rounded-circle') %>
+                      <%= User.find(friendship.friend_id).username %>
+                      (<%= link_to "Remove", friendship, :method => :delete %>)
+                      <%# If current user is the one being added %>
+                    <% elsif current_user.id == friendship.friend_id %> 
+                      <% friend = User.find(friendship.user_id) %>
+                      <%= image_tag(User.find(friendship.user_id).avatar.variant(resize_to_limit: [30, 30]), class: 'rounded-circle') %>
+                    <%= User.find(friendship.user_id).username %>
+                    (<%= link_to "Remove", friendship, :method => :delete %>)
+                    <% end %>
+                <% end %>
+                </li>
+              <% end %>
+          </ul>
+      </div>
+    <div>
+    </div>  
+  </div>
+    <div class="col text-center">
+      <button class="btn btn-default"><%= raw pagy_bootstrap_nav(@pagy) %></button>
+    </div>
+  </div>
+</div>
+</div>
+

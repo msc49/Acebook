@@ -1,0 +1,19 @@
+ <div class="container text-center">
+    <div id='friends-requests' class="p-2">
+      <h3>Requests</h3>
+      <ul>
+        <% for friendship in @friendships %>
+          <% if friendship.accepted == false %>
+            <li>
+              <%= User.find(friendship.user_id).username %>
+
+              <%= link_to "Add Friend", friendship, :method => :patch %>
+              <%= link_to "Add Friend", friendships_path(:friend_id => friendship.user_id, :accepted => true), :method => :post %>
+
+              
+              <%# (<%= link_to "remove", friendship, :method => :delete %>
+            </li>
+          <% end %>
+        <% end %>  
+        </ul>
+    </div>

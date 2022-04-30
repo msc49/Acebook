@@ -1,0 +1,21 @@
+language: ruby 
+rvm:
+- 3.0.2
+cache:
+- bundler
+services:
+  - postgresql
+before_script:
+- bundle install
+- bin/rails db:create
+- bin/rails db:migrate
+- bin/rails db:migrate RAILS_ENV=test
+- rake assets:precompile
+script: bundle exec rspec
+deploy:
+  provider: heroku
+  api_key:
+    secure: "piyaffN06zZH2VCagbh7JCwTIRGbFeTm8zWDyIwpoDakd0mLAgdtx+7LivYXTsKHcmzauiTQZV8EP0r5mnyiJkQ9s2JXRYGnRhn5PHeUtD8O0VXV30dh9NZCbURM1euk7723rQ3Uu2rkhYM4+B2Stqio4onNgQKU2YgvTD+Y3I/4CBBfMroaAnKPLZHwPrLrlun7PWyrSmlV1lOa55jwd/YjjLNLCbWVV/Uo/g0PUxWisMCr/rCIJFXk0iYxgDFfJQW+++Tu3xRLH6CNCuxUoO1y2tFe7jYG+NF5SPk5vNjgxd9SCCcN5EiCGf66tgRJCB9co5muO70V1PwxsZNwKwwyeRuBUs2QEvO8DzORPZ97Fpk1K0RAF3/l+XXWQPirEEJlc2/vf4j4Z37yrDIXC/iNNwDy1rER2WsFwuAOrR7PcWwQgb65TaQtkbd0N8ki1hIbOND/GTYRpPsLEonU5jK0Xr3mFJSNjTR2MuoA+16awy+j6avd7sij32iultI2LFOHiNH2SMpe7kzBtnZVdC9UGyBZIsH3K+QzdFq1JPWSwiT3CVSPa+foI2ib9VLK1X4pdhovd1xOieLiMSr2kBRdmuNOAY0eKJYsqkkpOFi0aJgE6UjUaHur5Hta+9alBiuxmFzNsrKrCk4GzNB3LdA0IsL9YhyL/svUanU6zmw="
+  app: acebook-dev
+  on:
+    repo: msc49/acebook-rails-template-simple

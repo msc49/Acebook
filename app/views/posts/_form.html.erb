@@ -1,0 +1,8 @@
+<div class = "container">
+  <%=  bootstrap_form_for(@post) do |form| %>
+    <%= form.text_area :message, skip_label: true, placeholder: "What's on your mind, #{current_user.username}?"%>
+    <%= form.label(:image, "Upload an image:") %>
+    <%= form.file_field :image, accept: 'image/png,image/jpeg', id: "images", skip_label: true %>
+    <%= form.submit 'Post', :id => "submit" %>
+  <% end %>
+</div>

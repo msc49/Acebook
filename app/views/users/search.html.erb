@@ -1,0 +1,15 @@
+<h2> Search Results</h2>
+
+<% @users.each do |user| %>
+<div id="friend_result">
+    <% if !current_user.friends.include?(user) && user != current_user  %>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <%= image_tag(current_user.avatar.variant(resize_to_limit: [30, 30]), class: 'rounded-circle') %>
+        <%= user.username %>
+        <%= button_to "Add Friend", friendships_path(:friend_id => user.id), :method => :post %>
+        </li>
+      </ul>
+</div>
+ <% end %>
+<% end %>

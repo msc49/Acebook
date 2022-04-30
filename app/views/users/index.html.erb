@@ -1,0 +1,38 @@
+<h1>List of Users</h1>
+
+<div class="container">
+  <div class="row justify-content-center">
+
+  <div class="col-12 w-75 mr-4">
+    <form action="/search">
+      <div id="search_field">
+        <input id="search-field" type="search" name="q" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+      </div>
+      <div id="search">
+        <button class="button-40" type="submit" class="btn btn-outline-primary">Search</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-12 w-75">
+    <% @users.each do |user| %>
+      <div id="friends">
+        <% if !current_user.friends.include?(user) && user != current_user  %>
+            <ul class="list-group" >
+              <li class="list-group-item"><%= user.username %></li>
+              <li class="list-group-item">
+                <%=button_to "Add Friend", friendships_path(:friend_id => user.id), :method => :post, class:"btn btn-outline-secondary"%>
+              </li>
+            </ul>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-12 w-75 text-center">
+    <button class="btn btn-default"><%= raw pagy_bootstrap_nav(@pagy) %></button>
+  </div>
+
+  </div>
+</div>
+

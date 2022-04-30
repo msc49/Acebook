@@ -1,0 +1,135 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+h1 {
+
+  text-align: center;
+  color: #353536;
+
+  }
+
+  h2 {
+
+    text-align: center;
+    color: #353536;
+  
+    }
+
+#search_field {
+  
+  width: 50%;
+  margin: auto;
+  padding: 10px;
+
+  }
+
+#search {
+  text-align: center;
+  }
+
+#page-num {
+
+  text-align: center;
+  
+  }
+
+#friends {
+
+  text-align: center;
+  color: #353536;
+  width: 50%;
+  margin: auto;
+  padding: 10px;
+  
+  }
+
+#friend_result {
+
+  text-align: center;
+  color: #353536;
+  width: 50%;
+  margin: auto;
+  padding: 10px;
+  
+  }
+
+  a:link {
+    color: #353536;
+  }
+
+  a:visited {
+    color: #353536;
+  }
+
+  a:hover {
+    color: #C8C8C9;
+  } 
+
+  .button-40 {
+    background-color: RGBA(0,0,0,0.75);
+    border: 1px solid transparent;
+    border-radius: .80rem;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    flex: 0 0 auto;
+    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    padding: .30rem 1.2rem;
+    text-align: center;
+    text-decoration: none #6B7280 solid;
+    text-decoration-thickness: auto;
+    transition-duration: .2s;
+    transition-property: background-color,border-color,color,fill,stroke;
+    transition-timing-function: cubic-bezier(.4, 0, 0.2, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+  }
+  
+  .button-40:hover {
+    background-color: #C8C8C9;
+  }
+  
+  .button-40:focus {
+    box-shadow: none;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+  .pagination > li > a
+{
+    background-color: RGBA(0,0,0,0.75);
+    color: white;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color:  #C8C8C9;
+    border: solid 1px  #C8C8C9;
+}
+
+.pagination > .active > a:hover
+{
+    background-color:  #C8C8C9;
+    border: solid 1px  #C8C8C9;
+}
+
+.page-item.active .page-link {
+    background: #000000;
+    border: solid 1px  #C8C8C9;
+  }

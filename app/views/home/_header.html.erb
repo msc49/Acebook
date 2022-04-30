@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <% if user_signed_in? %>
+    <strong><a class="navbar-brand" href="/posts">Acebook</a></strong>
+        <%= image_tag(current_user.avatar.variant(resize_to_limit: [50, 50]), class: 'rounded-circle') %>
+        <div id="signed-in-user-text" class="ml-2"><%= "Signed in as #{current_user.username}" %></div>
+  <% else %>
+    <a class="navbar-brand" href="/">Acebook</a>
+  <% end %>
+
+  <div class="navbar-header">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbar">
+    <ul class="navbar-nav ml-auto">
+      <% if user_signed_in? %>
+      <li class="nav-item">
+        <a class="nav-link mr-1" href="/users">Search Users |</a>
+      </li>           
+      <li class="nav-item">
+        <a class="nav-link mr-1" href="/users/edit">Profile Settings | </a>
+      </li>
+      <li class="nav-item">
+        <a id="logout-button" class="nav-link mr-1"> <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-secondary btn-sm"  %></a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+
+</nav>
